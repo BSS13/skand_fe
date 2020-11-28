@@ -1,47 +1,26 @@
 import React, { useEffect, useState } from 'react'; 
 import { Link } from 'react-router-dom';
+import { useTable } from 'react-table';
+import { connect } from 'react-redux';
+import {  GET_USERS_REQUESTED, DELETE_USER_REQUESTED } from '../redux/actions/user-action';
 
-export const Users = () => {
-
-    const [users,setUsers] = useState([]);
+const Users = ({
+    user: {loading, users},
+    getUsers,
+    deleteUser 
+}) => {
 
     useEffect(()=>{
-        let token = localStorage.getItem("token");
-        console.log(token);
-
-        fetch("/api/v2/users/", {
-            method: "get",
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': token
-            }
-        })
-        .then(response => response.json())
-        .then((users) => {
-          let usersArray = users.users;
-          setUsers(usersArray);
-          console.log(usersArray);
-        })
+       getUsers();
     },[]);
 
 
-    const deleteUser = (id)=>{
-        fetch(`/api/v2/users/${id}`, {
-            method: "delete",
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json'
-            }
-        })
-         .then( (response) => { 
-         console.log("User deleted Successfully");
-         setUsers([...users.filter(user => user.id !== id)])
-         
-          
-    });
-}
+    
 
     return(
+        <>
+        {loading && <h1>Loading details</h1>}
+        
         <div>
         <h1>Hello User List Page</h1>
         <Link to="/createUser">Add New User</Link>
@@ -56,8 +35,8 @@ export const Users = () => {
         
          <tbody>
         
-        {
-            (users.map((user)=>(
+        
+        { users &&  users.map((user)=>(
                 <tr key={user.id}>
                     <td>{user.id}</td>
                     <td>{user.email}</td>
@@ -70,12 +49,24 @@ export const Users = () => {
                     </td>
                 </tr>
             ))
-            )
+            
         }
         </tbody>   
         </table>
 
 
        </div> 
+       </>
     )
 };
+
+const mapStateToProps = (state) => ({
+    user: state.user
+})
+
+const mapDispatchToProps = (dispatch) => ({
+    getUsers: () => dispatch({type: GET_USERS_REQUESTED}),
+    deleteUser: (id) => dispatch({type: DELETE_USER_REQUESTED, payload: id})
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Users)

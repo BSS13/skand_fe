@@ -2,6 +2,9 @@ import React, { useEffect,useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {  GET_SPECIFIC_USER_REQUESTED, UPDATE_USER_REQUESTED } from '../redux/actions/user-action';
+import { Link } from 'react-router-dom';
 
 
 const UserSchema = Yup.object().shape({
@@ -23,73 +26,41 @@ const UserSchema = Yup.object().shape({
 });
 
 
-export const UpdateUser = () => {
-  const [user,setUser] = useState([]);
-  const [isLoading,setIsLoading] = useState(true);
+const UpdateUser = ({
+  user: {loading, users},
+  getSpecificUser,
+  updateUser 
+}) => {
+  
   const uid = useParams().uid;
+  
 
   useEffect(()=>{
-    let token = localStorage.getItem("token");
-    console.log(token);
-    
-
-    fetch(`/api/v2/users/${uid}`, {
-        method: "get",
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': token
-        }
-    })
-    .then(response => response.json())
-    .then((user) => {
-    
-      console.log(user.users);
-      setUser(user.users);
-    })
+    getSpecificUser(uid);
 },[]);
 
 const initialValues = {
-    email: user.email,
-    first_name: user.first_name,
-    last_name: user.last_name,
-    jobs_count: user.jobs_count,
-    active: user.active,
-    slack_username: user.slack_username,
-  };
+  email: "",
+  first_name: "",
+  last_name: "",
+  jobs_count: "",
+  active: "",
+  slack_username: "",
+};
+
 
 
   return (<>
-    {isLoading && <h1>Loading</h1>}
-    <Formik
-      initialValues={initialValues}
+    {loading && <h1>Loading</h1>}
+    <button><Link to="/users">Back</Link></button>
+    {users && <Formik enableReinitialize={true}
+      initialValues={users || initialValues}
       validationSchema={UserSchema}
 
       
       onSubmit={(values) => {
-
-        let token = localStorage.getItem("token");
-      
-        fetch("/api/v2/users", {
-        method: "post",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': token
-        },
-
-       body: JSON.stringify({
-        email: values.email,
-        first_name: values.first_name,
-        last_name: values.last_name,
-        jobs_count: values.jobs_count,
-        active: values.active,
-        slack_username: values.slack_username
-      })
-    })
-     .then( (response) => { 
-       console.log(response);
-      
-});
+       values.id = uid;
+       updateUser(values);
       }}
     >
       {(formik) => {
@@ -201,14 +172,26 @@ const initialValues = {
                 className={!(dirty && isValid) ? "disabled-btn" : ""}
                 disabled={!(dirty && isValid)}
               >
-                Add
+                Update
               </button>
             </Form>
           </div>
         );
       }}
-    </Formik>
+    </Formik>}
     </>);
 };
+
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getSpecificUser: (uid) => dispatch({type: GET_SPECIFIC_USER_REQUESTED, payload: uid}),
+  updateUser: (payload) => dispatch({type: UPDATE_USER_REQUESTED, payload: payload})
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(UpdateUser)
+
 
 

@@ -1,8 +1,8 @@
 import { Login } from './Login';
-import { Users } from './Users';
-import { User } from './User';
-import { CreateUser} from './CreateUser';
-import { UpdateUser } from './UpdateUser';
+import User from './User';
+import CreateUser from './CreateUser';
+import UpdateUser  from './UpdateUser';
+import Users from './Users';
 
 export {
     Login,

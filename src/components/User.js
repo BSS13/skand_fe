@@ -1,42 +1,51 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {  GET_SPECIFIC_USER_REQUESTED } from '../redux/actions/user-action';
 
-export const User = ()=>{
-     
-    const [user,setUser] = useState([]);
+const User = ({
+  user: {loading, users},
+  getSpecificUser 
+})=>{
+   
     const uid = useParams().uid;
     useEffect(()=>{
-        let token = localStorage.getItem("token");
-        console.log(token);
-        
-
-        fetch(`/api/v2/users/${uid}`, {
-            method: "get",
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': token
-            }
-        })
-        .then(response => response.json())
-        .then((user) => {
-        
-          console.log(user.users);
-          setUser(user.users);
-        })
+        getSpecificUser(uid);
     },[]);
 
 
      return(
-         <div>
+       <>
+         {loading && <h1>Still Loading ......</h1>}
+         
          <h1>Individual User Page</h1>
-         <h4>{user.id}</h4>
-         <h3>{user.email}</h3>
-         <h3>{user.first_name}</h3>
-         <h3>{user.last_name}</h3>
-         <h3>{user.jobs_count}</h3>
-         <h3>{user.slack_username}</h3>
-         <h3>{user.active}</h3>
-     </div>
+
+         {users && console.log(users)}
+         
+         { users &&  (
+           <>
+            <h4>{users.id}</h4>
+            <h3>{users.email}</h3>
+            <h3>{users.first_name}</h3>
+            <h3>{users.last_name}</h3>
+            <h3>{users.jobs_count}</h3>
+            <h3>{users.slack_username}</h3>
+            <h3>{users.active}</h3>
+          </>
+         )}
+         
+   
+     </>
      )
 };
+
+const mapStateToProps = (state) => ({
+  user: state.user
+})
+
+const mapDispatchToProps = (dispatch) => ({
+  getSpecificUser: (uid) => dispatch({type: GET_SPECIFIC_USER_REQUESTED, payload: uid})
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(User)
 

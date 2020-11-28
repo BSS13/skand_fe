@@ -1,6 +1,9 @@
 import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { connect } from 'react-redux';
+import {  CREATE_USER_REQUESTED } from '../redux/actions/user-action';
+import { Link } from 'react-router-dom'; 
 
 
 const UserSchema = Yup.object().shape({
@@ -30,43 +33,27 @@ const initialValues = {
   slack_username: "",
 };
 
-export const CreateUser = () => {
+const CreateUser = ({
+  user: {loading},
+  createUser
+}) => {
   return (
+    <>
     <Formik
       initialValues={initialValues}
       validationSchema={UserSchema}
 
       
       onSubmit={(values) => {
-
-        let token = localStorage.getItem("token");
-      
-        fetch("/api/v2/users", {
-        method: "post",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json',
-          'Authorization': token
-        },
-
-       body: JSON.stringify({
-        email: values.email,
-        first_name: values.first_name,
-        last_name: values.last_name,
-        jobs_count: values.jobs_count,
-        active: values.active,
-        slack_username: values.slack_username
-      })
-    })
-     .then( (response) => { 
-       console.log(response);
-      
-});
+        createUser(values);
       }}
     >
       {(formik) => {
         const { errors, touched, isValid, dirty } = formik;
         return (
+          <>
+          {loading && <h1>Updating</h1>}
+          <button><Link to="/users">Back</Link></button>
           <div className="container">
             <h1>Add New User</h1>
             <Form>
@@ -177,10 +164,21 @@ export const CreateUser = () => {
               </button>
             </Form>
           </div>
+          </>
         );
       }}
     </Formik>
+    </>
   );
+  
 };
 
+const mapStateToProps = (state) => ({
+  user: state.user
+})
 
+const mapDispatchToProps = (dispatch) => ({
+  createUser: (values) => dispatch({type: CREATE_USER_REQUESTED, payload: values}),
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(CreateUser)
