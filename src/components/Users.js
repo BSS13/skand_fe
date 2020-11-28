@@ -148,11 +148,22 @@ const columns = [
     {
       Header: 'ID',
       accessor: 'id',
+      Cell: ({cell:{value}}) =>{
+        return(
+            <>
+             <p>{value}</p>
+             <Link to={`/user/${value}`}>View</Link>
+            <Link to={`/updateuser/${value}`}>Edit</Link>
+            {/* <button onClick={deleteUser.bind(this,value)}>Delete</button> */}
+             
+            </>
+        )
+    },
       disableFilters: true
     }, {
       Header: 'Email',
       accessor: 'email',
-      Filter: SelectColumnFilter
+    //   Filter: SelectColumnFilter
     }, {
       Header: 'Jobs Count',
       accessor: 'jobs_count',
@@ -160,22 +171,8 @@ const columns = [
     }, {
       Header: 'Active',
       accessor: 'active',
-      Filter: SelectColumnFilter
-    },
-    {
-        Header: 'Actions',
-        accessor: '',
-        Cell: ({id}) =>{
-            return(
-                <>
-                 <Link to={`/user/${id}`}>View</Link> 
-                <Link to={`/updateuser/${id}`}>Edit</Link>
-                {/* <button onClick={deleteUser.bind(this,user.id)}>Delete</button> */}
-                 
-                </>
-            )
-        }
-      }
+    //   Filter: SelectColumnFilter
+    }
   ]
 
 

@@ -18,6 +18,12 @@ export const getAllUsers = async () => {
         }
 
         const user = await response.json();
+
+        user.users.map(u=>{
+            u.active = String(u.active);
+        })
+
+
         return user.users;
     }
     catch(err){

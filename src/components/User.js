@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {  GET_SPECIFIC_USER_REQUESTED } from '../redux/actions/user-action';
+import {Link} from 'react-router-dom';
 
 const User = ({
   user: {loading, users},
@@ -19,6 +20,7 @@ const User = ({
          {loading && <h1>Still Loading ......</h1>}
          
          <h1>Individual User Page</h1>
+         <button><Link to="/users">Back</Link></button>
 
          {users && console.log(users)}
          
