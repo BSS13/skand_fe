@@ -1,6 +1,8 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
+import { Button, Label } from './Theme';
 import * as Yup from "yup";
+
 
 
 const LoginSchema = Yup.object().shape({
@@ -52,7 +54,7 @@ export const Login = () => {
             <h1>Skand IO Login</h1>
             <Form>
               <div className="form-row">
-                <label htmlFor="email">Email</label>
+                <Label htmlFor="email">Email</Label><br/>
                 <Field
                   type="email"
                   name="email"
@@ -60,12 +62,14 @@ export const Login = () => {
                   className={
                     errors.email && touched.email ? "input-error" : null
                   }
-                />
+                  style={{width:'250px'}}
+                /><br/>
                 <ErrorMessage name="email" component="span" className="error" />
               </div>
+              <br/>
 
               <div className="form-row">
-                <label htmlFor="password">Password</label>
+                <Label htmlFor="password">Password</Label><br/>
                 <Field
                   type="password"
                   name="password"
@@ -73,21 +77,23 @@ export const Login = () => {
                   className={
                     errors.password && touched.password ? "input-error" : null
                   }
-                />
+                  style={{width:'250px'}}
+                /><br/>
                 <ErrorMessage
                   name="password"
                   component="span"
                   className="error"
                 />
               </div>
+              <br/>
 
-              <button
+              <Button
                 type="submit"
                 className={!(dirty && isValid) ? "disabled-btn" : ""}
                 disabled={!(dirty && isValid)}
               >
                 Sign In
-              </button>
+              </Button>
             </Form>
           </div>
         );

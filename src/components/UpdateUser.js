@@ -4,6 +4,7 @@ import * as Yup from "yup";
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {  GET_SPECIFIC_USER_REQUESTED, UPDATE_USER_REQUESTED } from '../redux/actions/user-action';
+import { Button } from './Theme';
 import { Link } from 'react-router-dom';
 
 
@@ -52,7 +53,7 @@ const initialValues = {
 
   return (<>
     {loading && <h1>Loading</h1>}
-    <button><Link to="/users">Back</Link></button>
+    <Button><Link to="/users">Back</Link></Button>
     {users && <Formik enableReinitialize={true}
       initialValues={users || initialValues}
       validationSchema={UserSchema}
@@ -67,7 +68,7 @@ const initialValues = {
         const { errors, touched, isValid, dirty } = formik;
         return (
           <div className="container">
-            <h1>Add New User</h1>
+            <h1>Update User Details</h1>
             <Form>
               <div className="form-row">
                 <label htmlFor="email">Email</label>
@@ -80,7 +81,7 @@ const initialValues = {
                   }
                 />
                 <ErrorMessage name="email" component="span" className="error" />
-              </div>
+              </div><br/>
 
               <div className="form-row">
                 <label htmlFor="first_name">First Name</label>
@@ -97,7 +98,7 @@ const initialValues = {
                   component="span"
                   className="error"
                 />
-              </div>
+              </div><br/>
 
               <div className="form-row">
                 <label htmlFor="last_name">Last Name</label>
@@ -114,7 +115,7 @@ const initialValues = {
                   component="span"
                   className="error"
                 />
-              </div>
+              </div><br/>
 
               <div className="form-row">
                 <label htmlFor="jobs_count">Jobs Count</label>
@@ -131,7 +132,7 @@ const initialValues = {
                   component="span"
                   className="error"
                 />
-              </div>
+              </div><br/>
 
               <div className="form-row">
                 <label htmlFor="active">Active</label>
@@ -148,7 +149,7 @@ const initialValues = {
                   component="span"
                   className="error"
                 />
-              </div>
+              </div><br/>
 
               <div className="form-row">
                 <label htmlFor="slack_username">Slack Username</label>
@@ -165,15 +166,15 @@ const initialValues = {
                   component="span"
                   className="error"
                 />
-              </div>
+              </div><br/>
 
-              <button
+              <Button
                 type="submit"
                 className={!(dirty && isValid) ? "disabled-btn" : ""}
                 disabled={!(dirty && isValid)}
               >
                 Update
-              </button>
+              </Button>
             </Form>
           </div>
         );

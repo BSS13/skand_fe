@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { connect } from 'react-redux';
 import {  CREATE_USER_REQUESTED } from '../redux/actions/user-action';
+import { Button } from './Theme';
 import { Link } from 'react-router-dom'; 
 
 
@@ -53,7 +54,7 @@ const CreateUser = ({
         return (
           <>
           {loading && <h1>Updating</h1>}
-          <button><Link to="/users">Back</Link></button>
+          <Button><Link to="/users">Back</Link></Button>
           <div className="container">
             <h1>Add New User</h1>
             <Form>
@@ -68,7 +69,7 @@ const CreateUser = ({
                   }
                 />
                 <ErrorMessage name="email" component="span" className="error" />
-              </div>
+              </div> <br/>
 
               <div className="form-row">
                 <label htmlFor="first_name">First Name</label>
@@ -85,7 +86,7 @@ const CreateUser = ({
                   component="span"
                   className="error"
                 />
-              </div>
+              </div> <br/>
 
               <div className="form-row">
                 <label htmlFor="last_name">Last Name</label>
@@ -102,7 +103,7 @@ const CreateUser = ({
                   component="span"
                   className="error"
                 />
-              </div>
+              </div> <br/>
 
               <div className="form-row">
                 <label htmlFor="jobs_count">Jobs Count</label>
@@ -119,7 +120,7 @@ const CreateUser = ({
                   component="span"
                   className="error"
                 />
-              </div>
+              </div> <br/>
 
               <div className="form-row">
                 <label htmlFor="active">Active</label>
@@ -136,7 +137,7 @@ const CreateUser = ({
                   component="span"
                   className="error"
                 />
-              </div>
+              </div> <br/>
 
               <div className="form-row">
                 <label htmlFor="slack_username">Slack Username</label>
@@ -153,15 +154,15 @@ const CreateUser = ({
                   component="span"
                   className="error"
                 />
-              </div>
+              </div> <br/>
 
-              <button
+              <Button
                 type="submit"
                 className={!(dirty && isValid) ? "disabled-btn" : ""}
                 disabled={!(dirty && isValid)}
               >
                 Add
-              </button>
+              </Button>
             </Form>
           </div>
           </>

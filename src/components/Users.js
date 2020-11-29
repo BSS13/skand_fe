@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'; 
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useTable,  useSortBy, useFilters, usePagination } from 'react-table';
 import { connect } from 'react-redux';
 import { Filter, DefaultColumnFilter, SelectColumnFilter} from './Filter';
@@ -8,22 +8,31 @@ import {  GET_USERS_REQUESTED, DELETE_USER_REQUESTED } from '../redux/actions/us
 
 const Styles = styled.div `
   table {
-    width: 100%;
+    width: 90%;
     border-spacing: 0;
-    border: 1px solid black;
+    margin: auto;
     tr {
       :last-child {
         td {
-          border-bottom: 0;
+          border-bottom: 10px;
         }
       }
+      :nth-child(even) {
+        {background-color: #E8E8E8;}
+      }
+      :hover 
+        {background-color: #D8D8D8;}
     }
-    th,
+    th {
+        background-color: #010203;
+        color: #dfe3e6;
+        padding: 10px;
+        text-align:center;
+    }
     td {
       margin: 0;
       padding: 1rem;
-      border-bottom: 1px solid black;
-      border-right: 1px solid black;
+      text-align:center;
       :last-child {
         border-right: 0;
       }
@@ -144,36 +153,6 @@ function Table({columns, data}) {
       )
 }
 
-const columns = [
-    {
-      Header: 'ID',
-      accessor: 'id',
-      Cell: ({cell:{value}}) =>{
-        return(
-            <>
-             <p>{value}</p>
-             <Link to={`/user/${value}`}>View</Link>
-            <Link to={`/updateuser/${value}`}>Edit</Link>
-            {/* <button onClick={deleteUser.bind(this,value)}>Delete</button> */}
-             
-            </>
-        )
-    },
-      disableFilters: true
-    }, {
-      Header: 'Email',
-      accessor: 'email',
-    //   Filter: SelectColumnFilter
-    }, {
-      Header: 'Jobs Count',
-      accessor: 'jobs_count',
-      disableFilters: true
-    }, {
-      Header: 'Active',
-      accessor: 'active',
-    //   Filter: SelectColumnFilter
-    }
-  ]
 
 
 
@@ -187,6 +166,49 @@ const Users = ({
        getUsers();
     },[]);
 
+    const columns = [
+        {
+          Header: 'ID',
+          accessor: 'id',
+          Cell: ({cell:{value}}) =>{
+
+            const history = useHistory();
+            const viewUser = ()=>{
+               const p =`/user/${value}`;
+               history.push(p);
+            };
+
+            const editUser = ()=>{
+                const p =`/updateuser/${value}`;
+                history.push(p);
+            };
+            return(
+                <>
+
+
+                 <p>{value}</p>
+                <button onClick={viewUser} style={{backgroundColor:'#24a0ed',color:'#010203',border:'none',marginRight:'2px',padding:'10px 30px',textAlign:'center',textDecoration:'none',display:'inline-block',fontSize:'16px',cursor:'pointer',minWidth:'10px'}}>View</button>
+                <button onClick={editUser} style={{backgroundColor:'#f0ad4e',color:'#010203',border:'none',marginRight:'2px',padding:'10px 30px',textAlign:'center',textDecoration:'none',display:'inline-block',fontSize:'16px',cursor:'pointer',minWidth:'10px'}}>Edit</button>
+                <button onClick={deleteUser.bind(this,value)} style={{backgroundColor:'#d9534f',color:'#010203',border:'none',marginRight:'2px',padding:'10px 30px',textAlign:'center',textDecoration:'none',display:'inline-block',fontSize:'16px',cursor:'pointer',minWidth:'10px'}}>X</button>
+                </>
+            )
+        },
+          disableFilters: true
+        }, {
+          Header: 'Email',
+          accessor: 'email',
+        //   Filter: SelectColumnFilter
+        }, {
+          Header: 'Jobs Count',
+          accessor: 'jobs_count',
+          disableFilters: true
+        }, {
+          Header: 'Active',
+          accessor: 'active',
+        //   Filter: SelectColumnFilter
+        }
+      ]
+    
 
     
 
@@ -194,45 +216,20 @@ const Users = ({
         <>
         {loading && <h1>Loading details</h1>}
         
-        
-        <h1>Hello User List Page</h1>
-        <Link to="/createUser">Add New User</Link>
-
+        <nav>
+             <div class="nav-wrapper" style={{backgroundColor:'black',color:'#dfe3e6'}}>
+             <ul id="nav-mobile" class="right hide-on-med-and-down">
+             <li><a href="collapsible.html">Logout</a></li>
+             </ul>
+            </div>
+           </nav>
+        <h1>Registered Users</h1>
+        <button style={{backgroundColor:'#4CAF50',color:'#010203',border:'none',marginRight:'2px',padding:'10px 30px',textAlign:'center',textDecoration:'none',display:'inline-block',fontSize:'16px',cursor:'pointer',minWidth:'10px',marginBottom:'10px'}}><Link style={{textDecoration:'none', color:'#010203'}} to="/createUser">Add New User</Link></button>
+             
         <Styles>
            {users && <Table data = {users} columns={columns}/>}
         </Styles>
-        {/* <table>
-          <thead>
-              <th>ID</th>
-              <th>Email</th>
-              <th>Jobs Count</th>
-              <th>Active</th>
-              <th></th>
-         </thead>  
         
-         <tbody>
-        
-        
-        { users &&  users.map((user)=>(
-                <tr key={user.id}>
-                    <td>{user.id}</td>
-                    <td>{user.email}</td>
-                    <td>{user.jobs_count}</td>
-                    <td>{user.active}</td>
-                    <td>
-                        <Link to={`/user/${user.id}`}>View</Link> 
-                        <Link to={`/updateuser/${user.id}`}>Edit</Link>
-                        <button onClick={deleteUser.bind(this,user.id)}>Delete</button>
-                    </td>
-                </tr>
-            ))
-            
-        }
-        </tbody>   
-        </table>
-
-
-         */}
        </>
     )
 };
