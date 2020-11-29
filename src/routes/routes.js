@@ -7,12 +7,12 @@ export const Routes = (props) =>{
         <Router>
          
           <Switch>
-            
             <Route exact path="/"><Login/></Route>
             <Route exact path="/users"><Users/></Route>
             <Route exact path="/user/:uid"><User/></Route>
             <Route exact path="/createUser"><CreateUser/></Route>
             <Route exact path="/updateuser/:uid"><UpdateUser/></Route>
+            <Redirect to="/users"></Redirect>
           </Switch>
 
         </Router>

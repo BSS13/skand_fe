@@ -1,11 +1,12 @@
-import React, { useEffect,useState } from 'react';
+import React, { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useParams } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import {  GET_SPECIFIC_USER_REQUESTED, UPDATE_USER_REQUESTED } from '../redux/actions/user-action';
-import { Button } from './Theme';
-import { Link } from 'react-router-dom';
+import Header from './Header';
+import { Button, Title } from './Theme';
 
 
 const UserSchema = Yup.object().shape({
@@ -51,10 +52,9 @@ const initialValues = {
 
 
 
-  return (<>
-    {loading && <h1>Loading</h1>}
-    <Button><Link to="/users">Back</Link></Button>
-    {users && <Formik enableReinitialize={true}
+  return (
+    <>
+    <Formik enableReinitialize={true}
       initialValues={users || initialValues}
       validationSchema={UserSchema}
 
@@ -67,9 +67,12 @@ const initialValues = {
       {(formik) => {
         const { errors, touched, isValid, dirty } = formik;
         return (
+          <>
+            {loading && <h1>Updating</h1>}
+           <Header/>
           <div className="container">
-            <h1>Update User Details</h1>
-            <Form>
+            <Title>Update User Details</Title>
+             <Form>
               <div className="form-row">
                 <label htmlFor="email">Email</label>
                 <Field
@@ -177,15 +180,23 @@ const initialValues = {
               </Button>
             </Form>
           </div>
+          </>
         );
       }}
-    </Formik>}
-    </>);
+    </Formik>
+    </>
+    );
 };
+
+UpdateUser.propTypes = {
+  updateUser: PropTypes.func.isRequired,
+  getSpecificUser: PropTypes.func.isRequired
+}
 
 const mapStateToProps = (state) => ({
   user: state.user
-})
+});
+
 
 const mapDispatchToProps = (dispatch) => ({
   getSpecificUser: (uid) => dispatch({type: GET_SPECIFIC_USER_REQUESTED, payload: uid}),

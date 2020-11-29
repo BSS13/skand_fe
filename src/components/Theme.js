@@ -52,3 +52,18 @@ export const Text = styled.p`
   font-family: 'Raleway', sans-serif;
   color: ${props => props.color || '#4d4d4d'}
 `;
+
+export const Button2 = styled.button`
+  color: ${props => props.color || '#4d4d4d'}
+  border:none;
+  margin-right:2px;
+  padding:10px 30px;
+  text-align:center;
+  textDecoration:none;
+  display:inline-block;
+  fontSize:16px;
+  cursor:pointer;
+  min-width:10px;
+  marginBottom:10px;
+  background-color: ${props => props.color || '#fff'}
+`;

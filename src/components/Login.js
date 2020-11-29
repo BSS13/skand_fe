@@ -3,8 +3,6 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import { Button, Label } from './Theme';
 import * as Yup from "yup";
 
-
-
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
          .email()

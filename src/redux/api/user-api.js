@@ -20,7 +20,7 @@ export const getAllUsers = async () => {
         const user = await response.json();
 
         user.users.map(u=>{
-            u.active = String(u.active);
+            return u.active = String(u.active);
         })
 
 
@@ -65,7 +65,8 @@ export const deleteUserById = async (id) => {
             method: "delete",
             headers: {
               'Accept': 'application/json',
-              'Content-Type': 'application/json'
+              'Content-Type': 'application/json',
+              'Authorization': token
             }
         })
         if(!response.ok) {
@@ -127,8 +128,9 @@ export const createNewUser = async (values) =>{
 export const updateExistingUser = async (values) =>{
     let token = localStorage.getItem("token");
     let id = values.id;
+
      try { 
-    const response = await  fetch(`/api/v2/users/${id}`, {
+    const response = await fetch(`/api/v2/users/${id}`, {
         method: "patch",
         headers: {
           'Accept': 'application/json',
@@ -144,6 +146,35 @@ export const updateExistingUser = async (values) =>{
         active: values.active,
         slack_username: values.slack_username
       })
+    })
+        if(!response.ok) {
+            const errmsg = `An error occured: ${response.status}`;
+            throw new Error(errmsg);
+        }
+
+        const r = await response.json();
+        return r;
+
+    }
+
+    catch(err){
+        console.log(err);
+    }
+         
+}
+
+//Logout
+export const logoutUser = async (values) =>{
+    let token = localStorage.getItem("token");
+    
+     try { 
+    const response = await fetch(`/api/v2/users/tokens`, {
+        method: "delete",
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'Authorization': token
+        }
     })
         if(!response.ok) {
             const errmsg = `An error occured: ${response.status}`;

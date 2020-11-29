@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react'; 
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { useTable,  useSortBy, useFilters, usePagination } from 'react-table';
 import { connect } from 'react-redux';
-import { Filter, DefaultColumnFilter, SelectColumnFilter} from './Filter';
+import Header from './Header';
+import { Title, Button2 } from './Theme';
+import { Filter, DefaultColumnFilter} from './Filter';
 import {  GET_USERS_REQUESTED, DELETE_USER_REQUESTED } from '../redux/actions/user-action';
 
 const Styles = styled.div `
@@ -162,6 +165,8 @@ const Users = ({
     deleteUser 
 }) => {
 
+    const [color,setColor] = useState(['#4CAF50','#24a0ed','#f0ad4e','#d9534f']);
+
     useEffect(()=>{
        getUsers();
     },[]);
@@ -187,9 +192,9 @@ const Users = ({
 
 
                  <p>{value}</p>
-                <button onClick={viewUser} style={{backgroundColor:'#24a0ed',color:'#010203',border:'none',marginRight:'2px',padding:'10px 30px',textAlign:'center',textDecoration:'none',display:'inline-block',fontSize:'16px',cursor:'pointer',minWidth:'10px'}}>View</button>
-                <button onClick={editUser} style={{backgroundColor:'#f0ad4e',color:'#010203',border:'none',marginRight:'2px',padding:'10px 30px',textAlign:'center',textDecoration:'none',display:'inline-block',fontSize:'16px',cursor:'pointer',minWidth:'10px'}}>Edit</button>
-                <button onClick={deleteUser.bind(this,value)} style={{backgroundColor:'#d9534f',color:'#010203',border:'none',marginRight:'2px',padding:'10px 30px',textAlign:'center',textDecoration:'none',display:'inline-block',fontSize:'16px',cursor:'pointer',minWidth:'10px'}}>X</button>
+                <Button2 onClick={viewUser} color={color[1]}>View</Button2>
+                <Button2 onClick={editUser} color={color[2]}>Edit</Button2>
+                <Button2 onClick={deleteUser.bind(this,value)} color={color[3]}>X</Button2>
                 </>
             )
         },
@@ -208,24 +213,17 @@ const Users = ({
         //   Filter: SelectColumnFilter
         }
       ]
-    
 
-    
-
+      
     return(
         <>
         {loading && <h1>Loading details</h1>}
         
-        <nav>
-             <div class="nav-wrapper" style={{backgroundColor:'black',color:'#dfe3e6'}}>
-             <ul id="nav-mobile" class="right hide-on-med-and-down">
-             <li><a href="collapsible.html">Logout</a></li>
-             </ul>
-            </div>
-           </nav>
-        <h1>Registered Users</h1>
-        <button style={{backgroundColor:'#4CAF50',color:'#010203',border:'none',marginRight:'2px',padding:'10px 30px',textAlign:'center',textDecoration:'none',display:'inline-block',fontSize:'16px',cursor:'pointer',minWidth:'10px',marginBottom:'10px'}}><Link style={{textDecoration:'none', color:'#010203'}} to="/createUser">Add New User</Link></button>
-             
+         <Header/>
+        <Title>Registered Users</Title>
+      
+        
+        <Button2 color={color[0]}><Link style={{textDecoration:'none', color:'#010203'}} to="/createUser">Add New User</Link></Button2>     
         <Styles>
            {users && <Table data = {users} columns={columns}/>}
         </Styles>
@@ -233,6 +231,11 @@ const Users = ({
        </>
     )
 };
+
+Users.propTypes = {
+    getUsers: PropTypes.func.isRequired,
+    deleteUser: PropTypes.func.isRequired
+  }
 
 const mapStateToProps = (state) => ({
     user: state.user

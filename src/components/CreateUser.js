@@ -3,6 +3,8 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { connect } from 'react-redux';
 import {  CREATE_USER_REQUESTED } from '../redux/actions/user-action';
+import PropTypes from 'prop-types';
+import Header from './Header';
 import { Button } from './Theme';
 import { Link } from 'react-router-dom'; 
 
@@ -54,6 +56,7 @@ const CreateUser = ({
         return (
           <>
           {loading && <h1>Updating</h1>}
+          <Header/>
           <Button><Link to="/users">Back</Link></Button>
           <div className="container">
             <h1>Add New User</h1>
@@ -173,6 +176,10 @@ const CreateUser = ({
   );
   
 };
+
+CreateUser.propTypes = {
+  createUser: PropTypes.func.isRequired
+}
 
 const mapStateToProps = (state) => ({
   user: state.user

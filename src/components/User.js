@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {  GET_SPECIFIC_USER_REQUESTED } from '../redux/actions/user-action';
-import { Button } from './Theme';
-import {Link} from 'react-router-dom';
+import Header from './Header';
+import { Title, Title2 } from './Theme';
+
 
 const User = ({
   user: {loading, users},
@@ -19,9 +21,8 @@ const User = ({
      return(
        <>
          {loading && <h1>Still Loading ......</h1>}
-         
-         <h1>Individual User Page</h1>
-         <Button><Link to="/users">Back</Link></Button>
+         <Header/>
+         <Title>Individual User Page</Title>
          { users &&  (
            <>
 <div class="card">
@@ -29,12 +30,12 @@ const User = ({
        <div class="row">
 
         <div class="col s3">
-            <i style={{ display:'inline-block'}}class="large material-icons">person</i><br/>
+            <i class="large material-icons">person</i><br/>
          </div>
 
         <div class="col s9">
-          <h4>{users.first_name} {users.last_name} ({users.id})</h4>
-          <h5>Active: {String(users.active)}</h5>
+          <Title2>{users.first_name} {users.last_name} ({users.id})</Title2>
+          <Title2>Active: {String(users.active)}</Title2>
         </div>
       
        </div>      
@@ -56,15 +57,15 @@ const User = ({
       </div>
      </div>
 
-        
-  
-
-
       </>
          )}
   </>
      )
 };
+
+User.propTypes = {
+  getSpecificUser: PropTypes.func.isRequired
+}
 
 const mapStateToProps = (state) => ({
   user: state.user
