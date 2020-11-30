@@ -58,3 +58,26 @@ To the developer who received this take home challenge. Congratulations on reach
 ### Any questions?
 
 Don't hesitate to ask! We're happy to guide you to succeed on this stage and soon become our potential team / family member.
+
+
+
+#### Code structure 
+
+ - Routes folder ( It stores all the routes for the application, implementing react-router-dom
+ - Redux folder has all the logic corresponding for react-redux and redux-sage setup and implementation
+    a) actions folder has the file declaring the types corresponding to the actions possible
+    b) Reducer folder has the root reducer and the reducer file for the user, corresponding the actions
+    c) Sagas folder has the implmentation for the rootSaga and required handlers to form the connection link for the logic implmentation
+    d) store.js file
+    e) api folder defines the functions making calls to the demo server being defined, having the usage of token for each of the request made along with response handling (for error cases as well)
+ - Components folder has the required associated components and related files, which act as follows:
+    a) Users.js (Main page being loaded after user logs in, displaying the users in table with action buttons)
+    b) User.js (Individual user display page)
+    c) Header.js (Defines the navbar with logout and home links)
+    d) Filter.js (Defines the filtering logic for the table being displayed on Users.js)
+    e) Login.js (Login form for accessing with (Formik + Yup) implementation)
+    f) Table.js (Defines the table structure being used in Users.js page)
+    h) Theme.js (Defines the styling and themes using styled-components)
+    i) UpdateUser.js (The Update Profile page being opened from edit action button on User.js page)
+    j) CreateUser.js (The Create New User page being opened from new button on Users.js page)
+    k) index.js (Exports the components for the routes)

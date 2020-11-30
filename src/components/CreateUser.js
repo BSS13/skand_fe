@@ -8,7 +8,7 @@ import Header from './Header';
 import { Button } from './Theme';
 import { Link } from 'react-router-dom'; 
 
-
+//Schema definition for Yup validation
 const UserSchema = Yup.object().shape({
   email: Yup.string()
          .email()
@@ -55,8 +55,20 @@ const CreateUser = ({
         const { errors, touched, isValid, dirty } = formik;
         return (
           <>
-          {loading && <h1>Updating</h1>}
           <Header/>
+
+          {loading &&  <div className="preloader-wrapper big active">
+    <div className="spinner-layer spinner-blue-only">
+      <div className="circle-clipper left">
+        <div className="circle"></div>
+      </div><div className="gap-patch">
+        <div className="circle"></div>
+      </div><div className="circle-clipper right">
+        <div className="circle"></div>
+      </div>
+    </div>
+  </div>}
+          
           <Button><Link to="/users">Back</Link></Button>
           <div className="container">
             <h1>Add New User</h1>

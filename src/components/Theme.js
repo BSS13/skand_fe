@@ -69,3 +69,37 @@ export const Button2 = styled.button`
   marginBottom:10px;
   background-color: ${props => props.color || '#fff'}
 `;
+
+export const Styles = styled.div `
+  table {
+    width: 90%;
+    border-spacing: 0;
+    margin: auto;
+    tr {
+      :last-child {
+        td {
+          border-bottom: 10px;
+        }
+      }
+      :nth-child(even) {
+        {background-color: #E8E8E8;}
+      }
+      :hover 
+        {background-color: #D8D8D8;}
+    }
+    th {
+        background-color: #010203;
+        color: #dfe3e6;
+        padding: 10px;
+        text-align:center;
+    }
+    td {
+      margin: 0;
+      padding: 1rem;
+      text-align:center;
+      :last-child {
+        border-right: 0;
+      }
+    }
+  }
+`

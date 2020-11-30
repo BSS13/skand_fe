@@ -27,22 +27,6 @@ const UserSchema = Yup.object().shape({
            .default(null)           
 });
 
-
-const UpdateUser = ({
-  user: {loading, users},
-  getSpecificUser,
-  updateUser 
-}) => {
-  
-  const uid = useParams().uid;
-  
-
-  useEffect(()=>{
-    getSpecificUser(uid);
-},[]);
-
-
-
 const initialValues = {
   email: "",
   first_name: "",
@@ -51,6 +35,21 @@ const initialValues = {
   active: "",
   slack_username: "",
 };
+
+
+const UpdateUser = ({
+  user: {loading, users},
+  getSpecificUser,
+  updateUser 
+}) => {
+  
+  const uid = useParams().uid;
+  const history = useHistory();
+  
+
+  useEffect(()=>{
+    getSpecificUser(uid);
+  },[]);
 
 
 
@@ -64,14 +63,26 @@ const initialValues = {
       onSubmit={(values) => {
        values.id = uid;
        updateUser(values);
+      //  history.push("/users");
       }}
     >
       {(formik) => {
         const { errors, touched, isValid, dirty, handleChange } = formik;
         return (
           <>
-            {loading && <h1>Updating</h1>}
-           <Header/>
+          <Header/>
+            {loading &&  <div className="preloader-wrapper big active">
+    <div className="spinner-layer spinner-blue-only">
+      <div className="circle-clipper left">
+        <div className="circle"></div>
+      </div><div className="gap-patch">
+        <div className="circle"></div>
+      </div><div className="circle-clipper right">
+        <div className="circle"></div>
+      </div>
+    </div>
+  </div>}
+           
            <Button><Link to="/users">Back</Link></Button>
           <div className="container">
             <Title>Update User Details</Title>

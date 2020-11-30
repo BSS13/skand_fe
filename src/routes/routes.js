@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch, Route, Redirect, BrowserRouter as Router} from 'react-router-dom';
 import { Login,  User, CreateUser, UpdateUser, Users } from '../components';
-
 export const Routes = (props) =>{
     return (
         <Router>

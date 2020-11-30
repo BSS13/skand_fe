@@ -20,20 +20,31 @@ const User = ({
 
      return(
        <>
-         {loading && <h1>Still Loading ......</h1>}
-         <Header/>
+       <Header/>
+         {loading && <div className="preloader-wrapper big active">
+    <div className="spinner-layer spinner-blue-only">
+      <div className="circle-clipper left">
+        <div className="circle"></div>
+      </div><div className="gap-patch">
+        <div className="circle"></div>
+      </div><div className="circle-clipper right">
+        <div className="circle"></div>
+      </div>
+    </div>
+  </div>}
+         
          <Title>Individual User Page</Title>
          { users &&  (
            <>
-<div class="card">
+<div class="card" style={{border:'1px solid black',width:'90%',margin:'auto'}}>
 
        <div class="row">
 
-        <div class="col s3">
+        <div class="col s4">
             <i class="large material-icons">person</i><br/>
          </div>
 
-        <div class="col s9">
+        <div class="col s8">
           <Title2>{users.first_name} {users.last_name} ({users.id})</Title2>
           <Title2>Active: {String(users.active)}</Title2>
         </div>
