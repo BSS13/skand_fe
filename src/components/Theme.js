@@ -15,6 +15,7 @@ export const Label = styled.label`
 `;
 
 
+
 export const Input = styled.input`
   width: 300px;
   height: 35px;
@@ -57,6 +58,7 @@ export const Button2 = styled.button`
   color: ${props => props.color || '#4d4d4d'}
   border:none;
   margin-right:2px;
+  margin-bottom: 2px;
   padding:10px 30px;
   text-align:center;
   textDecoration:none;

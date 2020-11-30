@@ -138,7 +138,7 @@ function Table({columns, data}) {
                 style={{ width: '100px' }}
               />
             </span>{' '}
-            <select
+            <select className="browser-default"
               value={pageSize}
               onChange={e => {
                 setPageSize(Number(e.target.value))

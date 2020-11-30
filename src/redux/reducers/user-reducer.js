@@ -22,10 +22,10 @@ export default (state = initialState, {type,payload}) =>{
 
         case UPDATE_USER:
             return {
-                ...state,
-                users: [payload, ...state.users],
-                loading: false
-                }
+              ...state,
+              users: [payload],
+              loading: false  
+            }
 
         case GET_SPECIFIC_USER:
              return {

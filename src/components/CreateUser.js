@@ -186,7 +186,7 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  createUser: (values) => dispatch({type: CREATE_USER_REQUESTED, payload: values}),
+  createUser: (payload) => dispatch({type: CREATE_USER_REQUESTED, payload: payload}),
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(CreateUser)

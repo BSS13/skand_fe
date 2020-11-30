@@ -14,7 +14,7 @@ const Header = ({
     }
     return(
         <nav>
-        <div class="nav-wrapper" style={{backgroundColor:'black',color:'#dfe3e6'}}>
+        <div className="nav-wrapper" style={{backgroundColor:'black',color:'#dfe3e6'}}>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
         <li><a href="/users">Home</a></li>   
         <li onClick={check} style={{cursor:'pointer'}}>Logout</li>

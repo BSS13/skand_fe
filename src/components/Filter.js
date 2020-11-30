@@ -18,6 +18,7 @@ export const DefaultColumnFilter = ({
   }) => {
     return (
       <Input
+        style={{backgroundColor:'white'}}
         value={filterValue || ""}
         onChange={e => {
           setFilter(e.target.value || undefined)

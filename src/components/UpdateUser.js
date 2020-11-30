@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
-import { useParams } from 'react-router-dom';
+import { useParams, Link, useHistory} from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {  GET_SPECIFIC_USER_REQUESTED, UPDATE_USER_REQUESTED } from '../redux/actions/user-action';
@@ -41,6 +41,8 @@ const UpdateUser = ({
     getSpecificUser(uid);
 },[]);
 
+
+
 const initialValues = {
   email: "",
   first_name: "",
@@ -65,11 +67,12 @@ const initialValues = {
       }}
     >
       {(formik) => {
-        const { errors, touched, isValid, dirty } = formik;
+        const { errors, touched, isValid, dirty, handleChange } = formik;
         return (
           <>
             {loading && <h1>Updating</h1>}
            <Header/>
+           <Button><Link to="/users">Back</Link></Button>
           <div className="container">
             <Title>Update User Details</Title>
              <Form>
@@ -173,8 +176,8 @@ const initialValues = {
 
               <Button
                 type="submit"
-                className={!(dirty && isValid) ? "disabled-btn" : ""}
-                disabled={!(dirty && isValid)}
+                className={!(isValid) ? "disabled-btn" : ""}
+                disabled={!(isValid)}
               >
                 Update
               </Button>

@@ -153,7 +153,7 @@ export const updateExistingUser = async (values) =>{
         }
 
         const r = await response.json();
-        return r;
+        return r.users;
 
     }
 
