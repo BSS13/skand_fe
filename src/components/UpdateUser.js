@@ -73,6 +73,8 @@ const UpdateUser = ({
                 </div>
               </div>}
 
+              {/* Display back button after updation done to avoid refresh */}
+
               {updated && <><Link to="/users"><Button>Back</Button></Link> <Title>Successfully Updated</Title></>}
               {users && !updated &&
                 <div className="container">

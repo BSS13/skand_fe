@@ -65,11 +65,16 @@ Don't hesitate to ask! We're happy to guide you to succeed on this stage and soo
 
  - Routes folder ( It stores all the routes for the application, implementing react-router-dom
  - Redux folder has all the logic corresponding for react-redux and redux-sage setup and implementation
-    a) actions folder has the file declaring the types corresponding to the actions possible
-    b) Reducer folder has the root reducer and the reducer file for the user, corresponding the actions
+    a) actions folder has the file declaring the types corresponding to the actions possible. These have been defined with REQUESTED and without REQUESTED format (eg: x_REQUESTED, x), with the REQUESTED one's being called from components and then the logic flow from reducer to then dispatching the required updation for the state. Index file is the root Saga
+
+    b) Reducer folder has the root reducer and the reducer file for the user, corresponding the actions. Index file is the root reducer
+
     c) Sagas folder has the implmentation for the rootSaga and required handlers to form the connection link for the logic implmentation
+
     d) store.js file
+
     e) api folder defines the functions making calls to the demo server being defined, having the usage of token for each of the request made along with response handling (for error cases as well)
+
  - Components folder has the required associated components and related files, which act as follows:
     a) Users.js (Main page being loaded after user logs in, displaying the users in table with action buttons)
     b) User.js (Individual user display page)

@@ -8,6 +8,7 @@ const Header = ({
     logout
 }) => {
     const history = useHistory();
+    // Remove Local storage after logout
     const check = () => {
         logout();
         localStorage.removeItem("token");
