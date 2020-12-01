@@ -39,3 +39,4 @@ jobs:
       - run: sudo python get-pip.py
       - run: sudo pip install awscli --upgrade
       - run: aws --version
+      - run: yarn run deploy
