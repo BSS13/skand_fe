@@ -16,7 +16,9 @@ const Users = ({
     deleteUser 
 }) => {
 
-    const [color,setColor] = useState(['#4CAF50','#24a0ed','#f0ad4e','#d9534f']);
+
+
+    const color = ['#4CAF50','#24a0ed','#f0ad4e','#d9534f'];
 
     useEffect(()=>{
        getUsers();
@@ -28,21 +30,12 @@ const Users = ({
           accessor: 'id',
           Cell: ({cell:{value}}) =>{
 
-            const history = useHistory();
-            const viewUser = ()=>{
-               const p =`/user/${value}`;
-               history.push(p);
-            };
-
-            const editUser = ()=>{
-                const p =`/updateuser/${value}`;
-                history.push(p);
-            };
+           
             return(
                 <>
                 <p>{value}</p>
-                <Button2 onClick={viewUser} color={color[1]}>View</Button2>
-                <Button2 onClick={editUser} color={color[2]}>Edit</Button2>
+                <Link to={`/user/${value}`}><Button2  color={color[1]}>View</Button2></Link>
+                <Link to={`/updateuser/${value}`}><Button2 color={color[2]}>Edit</Button2></Link>
                 <Button2 onClick={deleteUser.bind(this,value)} color={color[3]}>X</Button2>
                 </>
             )
@@ -61,7 +54,7 @@ const Users = ({
           accessor: 'active',
         //   Filter: SelectColumnFilter
         }
-      ]
+      ];
 
       
     return(
@@ -83,7 +76,7 @@ const Users = ({
         <Title>Registered Users</Title>
       
         
-        <Button2 color={color[0]}><Link style={{textDecoration:'none', color:'#010203'}} to="/createUser">Add New User</Link></Button2>     
+        <Link style={{textDecoration:'none', color:'#010203'}} to="/createUser"><Button2 color={color[0]}>Add New User</Button2></Link>     
         <Styles>
            {users && <Table data = {users} columns={columns}/>}
         </Styles>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useParams, Link, useHistory} from 'react-router-dom';
@@ -45,6 +45,7 @@ const UpdateUser = ({
   
   const uid = useParams().uid;
   const history = useHistory();
+  const [updated,setUpdated] = useState(false);
   
 
   useEffect(()=>{
@@ -63,7 +64,7 @@ const UpdateUser = ({
       onSubmit={(values) => {
        values.id = uid;
        updateUser(values);
-      //  history.push("/users");
+       setUpdated(true);
       }}
     >
       {(formik) => {
@@ -83,7 +84,7 @@ const UpdateUser = ({
     </div>
   </div>}
            
-           <Button><Link to="/users">Back</Link></Button>
+          {updated && <Link to="/users"><Button>Back</Button></Link>}
           <div className="container">
             <Title>Update User Details</Title>
              <Form>

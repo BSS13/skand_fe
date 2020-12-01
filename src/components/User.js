@@ -11,12 +11,10 @@ const User = ({
   user: {loading, users},
   getSpecificUser 
 })=>{
-   
     const uid = useParams().uid;
     useEffect(()=>{
         getSpecificUser(uid);
-    },[]);
-
+    },[getSpecificUser,uid]);
 
      return(
        <>
@@ -34,35 +32,35 @@ const User = ({
   </div>}
          
          <Title>Individual User Page</Title>
-         { users &&  (
+         {!loading &&  (
            <>
-<div class="card" style={{border:'1px solid black',width:'90%',margin:'auto'}}>
+<div className="card" style={{border:'1px solid black',width:'90%',margin:'auto'}}>
 
-       <div class="row">
+       <div className="row">
 
-        <div class="col s4">
-            <i class="large material-icons">person</i><br/>
+        <div className="col s4">
+            <i className="large material-icons">person</i><br/>
          </div>
-
-        <div class="col s8">
+         
+        <div className="col s8">
           <Title2>{users.first_name} {users.last_name} ({users.id})</Title2>
           <Title2>Active: {String(users.active)}</Title2>
         </div>
       
        </div>      
 
-        <div style={{backgroundColor:'#010203',padding:'5px'}} class="row">
+        <div style={{backgroundColor:'#010203',padding:'5px'}} className="row">
 
-           <div class="col s4" style={{color:'#dfe3e6'}}>
-            <i class="material-icons">email</i><br/>{users.email}
+           <div className="col s4" style={{color:'#dfe3e6'}}>
+            <i className="material-icons">email</i><br/>{users.email}
            </div>
 
-          <div class="col s4" style={{color:'#dfe3e6'}}>
-             <i class="material-icons">assignment</i><br/>{users.jobs_count}
+          <div className="col s4" style={{color:'#dfe3e6'}}>
+             <i className="material-icons">assignment</i><br/>{users.jobs_count}
           </div>
 
-          <div class="col s4" style={{color:'#dfe3e6'}}>
-            <i class="material-icons">card_membership</i><br/>{users.slack_username}
+          <div className="col s4" style={{color:'#dfe3e6'}}>
+            <i className="material-icons">card_membership</i><br/>{users.slack_username}
            </div>
 
       </div>

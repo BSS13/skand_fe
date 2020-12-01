@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import {  LOGOUT_REQUESTED } from '../redux/actions/user-action';
+import { Button } from './Theme';
 import { useHistory } from 'react-router-dom';
 
 const Header = ({
@@ -17,7 +18,7 @@ const Header = ({
         <div className="nav-wrapper" style={{backgroundColor:'black',color:'#dfe3e6'}}>
         <ul id="nav-mobile" className="right hide-on-med-and-down">
         <li><a href="/users">Home</a></li>   
-        <li onClick={check} style={{cursor:'pointer'}}>Logout</li>
+        <li onClick={check} style={{cursor:'pointer'}}><Button>Logout</Button></li>
         </ul>
        </div>
       </nav>

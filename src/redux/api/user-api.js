@@ -2,7 +2,7 @@
 export const getAllUsers = async () => {
     try{
         let token = localStorage.getItem("token");
-        console.log(token);
+        
 
         const response = await fetch("/api/v2/users/", {
             method: "get",

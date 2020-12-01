@@ -37,9 +37,10 @@ const initialValues = {
 };
 
 const CreateUser = ({
-  user: {loading},
+  user: {loading,users},
   createUser
 }) => {
+  
   return (
     <>
     <Formik
@@ -69,7 +70,7 @@ const CreateUser = ({
     </div>
   </div>}
           
-          <Button><Link to="/users">Back</Link></Button>
+          <Link to="/users"><Button>Back</Button></Link>
           <div className="container">
             <h1>Add New User</h1>
             <Form>

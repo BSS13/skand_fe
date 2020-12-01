@@ -31,9 +31,9 @@ export const Button = styled.button`
   color: #dfe3e6;
   border-radius: 3px;
   margin-top: 10px;
+  cursor:pointer;
 `;
 
-// Text
 
 export const Title = styled.h1`
   font-family: 'Raleway', sans-serif;

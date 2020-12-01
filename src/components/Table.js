@@ -22,7 +22,7 @@ export const Table =({columns, data}) =>{
       {
         columns,
         data,
-        initialState: { pageIndex: 0 },
+        initialState: { pageIndex: 0, pageSize: 3 },
         defaultColumn : { Filter: DefaultColumnFilter}
       },
       useFilters,
@@ -95,6 +95,7 @@ export const Table =({columns, data}) =>{
               />
             </span>{' '}
             <select className="browser-default"
+            style={{width:'90%',backgroundColor:'black',color:'white',margin:'auto'}}
               value={pageSize}
               onChange={e => {
                 setPageSize(Number(e.target.value))

@@ -39,7 +39,6 @@ export const Login = () => {
      .then( (response) => { 
      let token = response.headers.map.authorization;
      localStorage.setItem("token", token);
-     console.log(token);
      window.location.href="/users";
       
 });

@@ -10,7 +10,7 @@ function* getUsers () {
 
 function* getSpecificUser ({payload}) {
     yield put ({type: SET_LOADING})
-    const user = yield call(getUserById, payload)
+    const user = yield call(getUserById, payload);
     yield put({type: GET_SPECIFIC_USER, payload: user})
 }
 
@@ -22,8 +22,8 @@ function* deleteUser ({payload}) {
 
 function* createUser ({payload}) {
     yield put({type: SET_LOADING})
-    yield call(createNewUser,payload)
-    yield put ({type: CREATE_USER,payload})
+    const r =yield call(createNewUser,payload);
+    yield put ({type: CREATE_USER,payload : r.users})
 }
 
 function* updateUser ({payload}) {
