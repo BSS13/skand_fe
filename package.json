@@ -10,6 +10,7 @@
     "formik": "^2.2.5",
     "jsonwebtoken": "^8.5.1",
     "lodash": "^4.17.20",
+    "materialize-css": "^1.0.0",
     "miragejs": "^0.1.40",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

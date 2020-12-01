@@ -5,11 +5,11 @@ import * as Yup from "yup";
 
 const LoginSchema = Yup.object().shape({
   email: Yup.string()
-         .email()
-         .required("Email Required"),
+    .email()
+    .required("Email Required"),
   password: Yup.string()
-           .required("Password Required")
-           .min(6, "Password must be of atleast 6 characters")
+    .required("Password Required")
+    .min(6, "Password must be of atleast 6 characters")
 });
 
 const initialValues = {
@@ -22,26 +22,26 @@ export const Login = () => {
     <Formik
       initialValues={initialValues}
       validationSchema={LoginSchema}
-      
+
       onSubmit={(values) => {
         fetch("/api/v2/users/tokens/", {
-        method: "post",
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json'
-        },
+          method: "post",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
 
-       body: JSON.stringify({
-        email: values.email,
-        password: values.password
-      })
-    })
-     .then( (response) => { 
-     let token = response.headers.map.authorization;
-     localStorage.setItem("token", token);
-     window.location.href="/users";
-      
-});
+          body: JSON.stringify({
+            email: values.email,
+            password: values.password
+          })
+        })
+          .then((response) => {
+            let token = response.headers.map.authorization;
+            localStorage.setItem("token", token);
+            window.location.href = "/users";
+
+          });
       }}
     >
       {(formik) => {
@@ -51,7 +51,7 @@ export const Login = () => {
             <h1>Skand IO Login</h1>
             <Form>
               <div className="form-row">
-                <Label htmlFor="email">Email</Label><br/>
+                <Label htmlFor="email">Email</Label><br />
                 <Field
                   type="email"
                   name="email"
@@ -59,14 +59,14 @@ export const Login = () => {
                   className={
                     errors.email && touched.email ? "input-error" : null
                   }
-                  style={{width:'250px'}}
-                /><br/>
+                  style={{ width: '250px' }}
+                /><br />
                 <ErrorMessage name="email" component="span" className="error" />
               </div>
-              <br/>
+              <br />
 
               <div className="form-row">
-                <Label htmlFor="password">Password</Label><br/>
+                <Label htmlFor="password">Password</Label><br />
                 <Field
                   type="password"
                   name="password"
@@ -74,15 +74,15 @@ export const Login = () => {
                   className={
                     errors.password && touched.password ? "input-error" : null
                   }
-                  style={{width:'250px'}}
-                /><br/>
+                  style={{ width: '250px' }}
+                /><br />
                 <ErrorMessage
                   name="password"
                   component="span"
                   className="error"
                 />
               </div>
-              <br/>
+              <br />
 
               <Button
                 type="submit"

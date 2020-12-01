@@ -70,7 +70,7 @@ export const Button2 = styled.button`
   background-color: ${props => props.color || '#fff'}
 `;
 
-export const Styles = styled.div `
+export const Styles = styled.div`
   table {
     width: 90%;
     border-spacing: 0;

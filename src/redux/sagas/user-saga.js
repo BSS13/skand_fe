@@ -1,41 +1,41 @@
-import { put, call, takeLatest, takeEvery} from 'redux-saga/effects';
-import { SET_LOADING, GET_USERS,DELETE_USER_REQUESTED, CREATE_USER, UPDATE_USER, UPDATE_USER_REQUESTED, DELETE_USER, GET_USERS_REQUESTED, GET_SPECIFIC_USER, GET_SPECIFIC_USER_REQUESTED, CREATE_USER_REQUESTED, LOGOUT, LOGOUT_REQUESTED} from '../actions/user-action';
-import { getAllUsers, getUserById, deleteUserById,createNewUser, updateExistingUser, logoutUser } from '../api/user-api';
+import { put, call, takeEvery } from 'redux-saga/effects';
+import { SET_LOADING, GET_USERS, DELETE_USER_REQUESTED, CREATE_USER, UPDATE_USER, UPDATE_USER_REQUESTED, DELETE_USER, GET_USERS_REQUESTED, GET_SPECIFIC_USER, GET_SPECIFIC_USER_REQUESTED, CREATE_USER_REQUESTED, LOGOUT, LOGOUT_REQUESTED } from '../actions/user-action';
+import { getAllUsers, getUserById, deleteUserById, createNewUser, updateExistingUser, logoutUser } from '../api/user-api';
 
-function* getUsers () {
-    yield put ({ type: SET_LOADING })
+function* getUsers() {
+    yield put({ type: SET_LOADING })
     const users = yield call(getAllUsers)
-    yield put({type:GET_USERS, payload: users})
+    yield put({ type: GET_USERS, payload: users })
 }
 
-function* getSpecificUser ({payload}) {
-    yield put ({type: SET_LOADING})
+function* getSpecificUser({ payload }) {
+    yield put({ type: SET_LOADING })
     const user = yield call(getUserById, payload);
-    yield put({type: GET_SPECIFIC_USER, payload: user})
+    yield put({ type: GET_SPECIFIC_USER, payload: user })
 }
 
-function* deleteUser ({payload}) {
-    yield put ({type : SET_LOADING })
+function* deleteUser({ payload }) {
+    yield put({ type: SET_LOADING })
     yield call(deleteUserById, payload)
-    yield put ({ type:DELETE_USER, payload})
+    yield put({ type: DELETE_USER, payload })
 }
 
-function* createUser ({payload}) {
-    yield put({type: SET_LOADING})
-    const r =yield call(createNewUser,payload);
-    yield put ({type: CREATE_USER,payload : r.users})
+function* createUser({ payload }) {
+    yield put({ type: SET_LOADING })
+    const r = yield call(createNewUser, payload);
+    yield put({ type: CREATE_USER, payload: r.users })
 }
 
-function* updateUser ({payload}) {
-    yield put({type: SET_LOADING})
-    const userUpdated = yield call(updateExistingUser,payload)
-    yield put ({type: UPDATE_USER, payload: userUpdated})
+function* updateUser({ payload }) {
+    yield put({ type: SET_LOADING })
+    const userUpdated = yield call(updateExistingUser, payload)
+    yield put({ type: UPDATE_USER, payload: userUpdated })
 }
 
-function* logout (){
-    yield put({type: SET_LOADING})
+function* logout() {
+    yield put({ type: SET_LOADING })
     yield call(logoutUser)
-    yield put({type: LOGOUT})
+    yield put({ type: LOGOUT })
 }
 
 export default function* userSaga() {

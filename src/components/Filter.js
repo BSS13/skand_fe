@@ -2,59 +2,58 @@ import React from "react";
 import { Input, CustomInput } from 'reactstrap';
 
 export const Filter = ({ column }) => {
-  return (
-    <div style={{ marginTop: 5 }}>
-      {column.canFilter && column.render("Filter")}
-    </div>
-  )
+    return (
+        <div style={{ marginTop: 5 }}>
+            {column.canFilter && column.render("Filter")}
+        </div>
+    )
 }
 
 export const DefaultColumnFilter = ({
     column: {
-      filterValue,
-      setFilter,
-      preFilteredRows: { length },
+        filterValue,
+        setFilter,
+        preFilteredRows: { length },
     },
-  }) => {
+}) => {
     return (
-      <Input
-        style={{backgroundColor:'white'}}
-        value={filterValue || ""}
-        onChange={e => {
-          setFilter(e.target.value || undefined)
-        }}
-        placeholder={`search (${length}) ...`}
-      />
+        <Input
+            style={{ backgroundColor: 'white' }}
+            value={filterValue || ""}
+            onChange={e => {
+                setFilter(e.target.value || undefined)
+            }}
+            placeholder={`search (${length}) ...`}
+        />
     )
-  }
+}
 
-  export const SelectColumnFilter = ({
+export const SelectColumnFilter = ({
     column: { filterValue, setFilter, preFilteredRows, id },
-  }) => {
+}) => {
     const options = React.useMemo(() => {
-      const options = new Set()
-      preFilteredRows.forEach(row => {
-        options.add(row.values[id])
-      })
-      return [...options.values()]
+        const options = new Set()
+        preFilteredRows.forEach(row => {
+            options.add(row.values[id])
+        })
+        return [...options.values()]
     }, [id, preFilteredRows])
-  
+
     return (
-      <CustomInput
-        id="custom-select"
-        type="select"
-        value={filterValue}
-        onChange={e => {
-          setFilter(e.target.value || undefined)
-        }}
-      >
-        <option value="">All</option>
-        {options.map(option => (
-          <option key={option} value={option}>
-            {option}
-          </option>
-        ))}
-      </CustomInput>
+        <CustomInput
+            id="custom-select"
+            type="select"
+            value={filterValue}
+            onChange={e => {
+                setFilter(e.target.value || undefined)
+            }}
+        >
+            <option value="">All</option>
+            {options.map(option => (
+                <option key={option} value={option}>
+                    {option}
+                </option>
+            ))}
+        </CustomInput>
     )
-  }
-  
+}
